@@ -1,91 +1,108 @@
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.css';
+import "./App.css"
+import { useState } from 'react';
 
 function CarouselF(props) {
+
   return (
-    <>
+    <div
+    id="frontPage"
+      style={{
+        backgroundColor: "rgb(154, 1, 1)",
+        display:"flex",
+        justifyContent: "center",
+        height:"100%",
+
+       
+      }}
+    >
       <Carousel
         style={{
+          width: "1200px",
           border: "1px solid black",
           backgroundColor: "rgb(154, 1, 1)",
           height: "500px",
-          display: "flex",
-          justifyContent: "center"
-        }}>
-
+        }}
+      >
         {console.log(props.BlogData)}
-
-        {props.BlogData.map(arr => {
+        {props.BlogData.map((arr) => {
           return (
-
             <Carousel.Item
               style={{
-                textAlign: "center"
-              }}>
-
-              <img
-                style={{
-                  height: "414px",
-                  width: "30%",
-                  float: "left",
-                  marginLeft: "235px",
-                  marginTop: "25px",
-                  border: "10px solid hsl(60, 74%, 50%)"
-                }}
-                
-                src={arr.src}
-
-              />
-
-
+                textAlign: "center",
+              }}
+            >
               <div
                 style={{
-                  float: "right",
-                  marginRight: "220px",
-                  marginTop: "25px"
-                }}>
-
-                <h3
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-evenly", // Horizontally center the items
+                  border:"10px solid black",
+                  height:"100%"
+                }}
+              >
+                <div >
+                  <img
+                    style={{
+                      objectFit: "contain",
+                      height: "400px",
+                      width: "90%",
+                      // marginTop: "40px"
+                      // border: "10px solid hsl(60, 74%, 50%)",
+                    }}
+                    src={arr.src}
+                    alt="Carousel Image"
+                  />
+                </div>
+                <div
                   style={{
-                    height: "fit-content",
-                    padding: "2px",
-                    backgroundColor: "green",
-                    fontSize: "35px",
-                    width: "400px",
-                    color: "rgb(0, 1, 82)",
-                    border: "10px solid hsl(60, 74%, 50%)"
-                  }}>
-                  {arr.title}
+                    flex: "0 0 50%",
+                    marginTop: "40px",
+                    marginRight:"-100px"
+                    
 
-                </h3>
+                  }}
+                >
+                  <h3
+                    style={{
+                      textAlign: "center",
+                      width: "400px",
+                      height: "fit-content",
+                      padding: "2px",
+                      backgroundColor: "green",
+                      fontSize: "35px",
+                      color: "rgb(0, 1, 82)",
+                      border: "10px solid hsl(60, 74%, 50%)",
+                    }}
+                  >
+                    {arr.title}
+                  </h3>
 
-                <br></br>
-
-                <p
-                  id="ptag"
-                  style={{
-                    height: "fit-content",
-                    overflowY: arr.description.length > 274 ? "scroll" : "hidden",
-                    overflowWrap: "break-word",
-                    maxHeight: "274px",
-                    padding: "10px",
-                    backgroundColor: "green",
-                    fontSize: "25px",
-                    width: "400px",
-                    color: "rgb(0, 1, 82)",
-                    border: "10px solid hsl(60, 74%, 50%)"
-                  }}>
-                  {arr.description}
-                </p>
-                
+                  <p
+                    id="ptag"
+                    style={{
+                      width: "400px",
+                      height: "fit-content",
+                      overflowY: arr.description.length > 274 ? "scroll" : "hidden",
+                      overflowWrap: "break-word",
+                      maxHeight: "274px",
+                      padding: "10px",
+                      backgroundColor: "green",
+                      fontSize: "25px",
+                      color: "rgb(0, 1, 82)",
+                      border: "10px solid hsl(60, 74%, 50%)",
+                    }}
+                  >
+                    {arr.description}
+                  </p>
+                </div>
               </div>
-
             </Carousel.Item>
-          )
-        })
-        }
+          );
+        })}
       </Carousel>
-    </>
+    </div>
   );
 }
 
