@@ -1,4 +1,5 @@
 import React from "react"
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 let click = 1;
 function Navbar(props) {
@@ -8,6 +9,9 @@ function Navbar(props) {
         console.log("click", props.userlogin)
     }
 
+    function scrollBartoggle(){
+        props.showscrollFunction(true)
+    }
 
     return (
         <>
@@ -16,7 +20,8 @@ function Navbar(props) {
                 style={{
                     display: "flex",
                     justifyContent: "flex-end",
-                    backgroundColor: "green"
+                    backgroundColor: "green",
+                   
                 }}>
 
                 <ul
@@ -95,6 +100,7 @@ function Navbar(props) {
                                     listStyle: "none"
                                 }}>
                                 <Link
+                                onClick={scrollBartoggle}
                                     style={{
                                         color: "hsl(60, 74%, 50%)"
                                     }}
