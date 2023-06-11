@@ -61,6 +61,13 @@ function App() {
                   }}>
                     Sign in to see posts !!!
                   </h1>
+                  <style>
+                              {`
+                                ::-webkit-scrollbar {
+                                    display: none;
+                                  } 
+                              `}
+                            </style>
                 </div>
               }
             />

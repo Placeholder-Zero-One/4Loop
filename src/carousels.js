@@ -17,6 +17,16 @@ function CarouselF(props) {
        
       }}
     >
+
+        <style>
+          {`
+            ::-webkit-scrollbar {
+                display: none;
+              } 
+          `}
+        </style>
+
+        
       <Carousel
         style={{
           width: "1200px",
