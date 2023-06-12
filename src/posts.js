@@ -124,7 +124,7 @@ function Post(props) {
                 show={show} onHide={handleClose}>
                 <Offcanvas.Header
                     closeButton>
-                    <h1></h1>
+                    <h1> </h1>
                     <h2
                         style={{
                             fontSize: "40px"
