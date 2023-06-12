@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import BlogData from "./BlogData.json"
+import BlogData from "./CarouselData.json"
 
 function CardComponent() {
   return (

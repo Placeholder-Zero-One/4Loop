@@ -16,7 +16,7 @@ function Post(props) {
     const [content, contentFunction] = useState("")
     const [Upload, uploadFunction] = useState("")
     const [index, setIndex] = useState(0);
-
+    const [photoBlob, setPhotoBlob] = useState('')
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -34,7 +34,7 @@ function Post(props) {
 
 
     function uploadF(event) {
-        uploadFunction(event.target.value)
+        uploadFunction(event.target.files[0])
         console.log("Upload", event.target.files[0])
     }
 
@@ -47,39 +47,66 @@ function Post(props) {
 
 
 
+    // const upload = await axios.post("http://localhost:3001/blogs", { headers: { data: formData } });
+    // console.log('Photo uploaded:', upload.data.url);
+    // Handle the generated photo URL as needed (e.g., display it on the page)
+    function getBase64(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            console.log(reader.result);
+            setPhotoBlob(reader.result)
+            return reader.result
+        };
+        reader.onerror = function (error) {
+          console.log('Error: ', error);
+        };
+        return reader.result
+     }
+     
+    //  var file = document.querySelector('#files > input[type="file"]').files[0];
+    //  getBase64(file); // prints the base64 string
 
     async function SubmitPost(event) {
         try {
             event.preventDefault();
             const formData = new FormData();
             formData.append('photo', Upload);
-
-            const upload = await axios.post("http://localhost:3001/upload", formData);
-            console.log('Photo uploaded:', upload.data.url);
-            // Handle the generated photo URL as needed (e.g., display it on the page)
-
-            // Continue with submitting the blog post with the photo URL
-            const DataSent = await axios.post("http://localhost:3001/blog", {
+    
+            // const response = await axios.post("http://localhost:3001/upload", formData, {
+            //     headers: { 'Content-Type': 'multipart/form-data' },
+            //     responseType: 'arraybuffer',
+            // });
+            getBase64(Upload)
+            //let photo = new Buffer.from('base64',Upload);
+           
+          
+            // Send the buffer in the request body
+            const DataSent = await axios.post("http://localhost:3001/blogs", {
+                usersId: 'jaredp',
                 Title: Title,
+                like: 2,
                 content: content,
-                photoUrl: upload.data.url, // Pass the generated photo URL
+                media:{blob:photoBlob}
+                 // sending buffer
             });
-            console.log(DataSent);
+            console.log(DataSent.data);
         } catch (error) {
             console.error(error);
         }
     }
     
+
     return (
         <div
-        className="posts"
-        style={{
-            display: "flex",
-            flexDirection: "column",
-            overflow: "hidden",
-            backgroundColor: "rgb(122, 1, 1)",
-            height: "100%"
-        }}
+            className="posts"
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                overflow: "hidden",
+                backgroundColor: "rgb(122, 1, 1)",
+                height: "100%"
+            }}
         >
 
 
@@ -102,7 +129,7 @@ function Post(props) {
                         style={{
                             fontSize: "40px"
                         }}
-                        >
+                    >
                         Create A Blog
                     </h2>
                 </Offcanvas.Header>
@@ -110,12 +137,12 @@ function Post(props) {
                     controlId="floatingTextarea"
                     label="Blog Title"
                     className="mb-3"
-                    >
+                >
                     <Form.Control
                         onChange={TitleF}
                         as="textarea"
                         placeholder="Leave a comment here"
-                        />
+                    />
                 </FloatingLabel>
                 <FloatingLabel
                     controlId="floatingTextarea2"
@@ -128,18 +155,18 @@ function Post(props) {
                         style={{
                             height: '100px'
                         }}
-                        />
+                    />
                 </FloatingLabel>
                 <Form.Group
                     controlId="formFile"
                     className="mb-3"
-                    >
+                >
                     <br></br>
                     <h3
                         style={{
                             textAlign: "center"
                         }}
-                        >
+                    >
                         Upload image or video
                     </h3>
                     <br></br>
@@ -147,7 +174,7 @@ function Post(props) {
                         onChange={uploadF}
                         type="file"
                         required
-                        />
+                    />
                 </Form.Group>
                 <button
                     onClick={SubmitPost}
@@ -157,14 +184,17 @@ function Post(props) {
                         border: "none"
                     }}
                 > <span
-                style={{
-                    border: "3px solid black",
-                    padding: "3px"
-                }}
-                >
+                    style={{
+                        border: "3px solid black",
+                        padding: "3px"
+                    }}
+                        
+                    >
+                        
                         Submit Blog
                     </span>
                 </button>
+                    <img src={photoBlob} alt='PREVIEW'/>
             </Offcanvas>
             <div
                 style={{
