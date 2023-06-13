@@ -1,7 +1,7 @@
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.css';
 import "./App.css"
-import { useState } from 'react';
+
 
 function CarouselF(props) {
 
@@ -62,7 +62,7 @@ function CarouselF(props) {
                       // border: "10px solid hsl(60, 74%, 50%)",
                     }}
                     src={arr.src}
-                    alt="Carousel Image"
+                    alt="Carousel"
                   />
                 </div>
                 <div

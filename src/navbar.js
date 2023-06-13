@@ -1,5 +1,4 @@
 import React from "react"
-import { useState } from 'react';
 import { Link } from "react-router-dom";
 let click = 1;
 function Navbar(props) {
@@ -41,7 +40,7 @@ function Navbar(props) {
                                     backgroundColor: "rgb(122, 1, 1)",
                                     fontSize: "30px"
                                 }}>
-                                <img src="codecrew.png" style={{
+                                <img src="codecrew.png" alt="Codecrew Background"style={{
                                     position: "absolute",
                                     right: "216px",
                                     top: "32px",
@@ -76,6 +75,7 @@ function Navbar(props) {
                                 fontSize: "30px"
                             }}>
                                 <img src="codecrew.png"
+                                    alt="Codecrew Background"
                                     style={{
                                         position: "absolute",
                                         right: "338px",
