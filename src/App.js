@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Splash from './Splash';
-import Posts from './Posts';
+import Posts from './posts';
 import './App.css';
 
 function App() {
@@ -14,5 +14,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
