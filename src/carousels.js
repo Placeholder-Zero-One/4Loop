@@ -18,6 +18,7 @@ function CarouselF(props) {
       }}
     >
 
+          
         <style>
           {`
             ::-webkit-scrollbar {
