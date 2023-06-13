@@ -12,30 +12,33 @@ import CardComponent from "./card"
 
 function Post(props) {
     const [show, setShow] = useState(false);
-    const [Title, TitleFunction] = useState("")
-    const [content, contentFunction] = useState("")
-    const [Upload, uploadFunction] = useState("")
+    const [title, setTitle] = useState("")
+    const [caption, setCaption] = useState("")
     const [index, setIndex] = useState(0);
     const [photoBlob, setPhotoBlob] = useState('')
+    const [mediaPostImage, setMediaPostImage] = useState({ myFile: "" });
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
 
     function TitleF(event) {
-        TitleFunction(event.target.value)
-        console.log("Title", event.target.value)
+        setTitle(event.target.value)
+        console.log("Title", title)
     }
 
-    function contentF(event) {
-        contentFunction(event.target.value)
-        console.log("content", event.target.value)
+    function captionF(event) {
+        setCaption(event.target.value)
+        console.log("content", caption)
     }
 
 
-    function uploadF(event) {
-        uploadFunction(event.target.files[0])
-        console.log("Upload", event.target.files[0])
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertToBase64(file);
+        const formData = new FormData(base64)
+        setMediaPostImage({ ...mediaPostImage, myFile: base64 });
+        console.log(formData)
     }
 
 
@@ -50,51 +53,37 @@ function Post(props) {
     // const upload = await axios.post("http://localhost:3001/blogs", { headers: { data: formData } });
     // console.log('Photo uploaded:', upload.data.url);
     // Handle the generated photo URL as needed (e.g., display it on the page)
-    function getBase64(file) {
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function () {
-            console.log(reader.result);
-            setPhotoBlob(reader.result)
-            return reader.result
-        };
-        reader.onerror = function (error) {
-          console.log('Error: ', error);
-        };
-        return reader.result
-     }
+    function convertToBase64(file) {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+                setPhotoBlob(fileReader.result)
+            };
+            fileReader.onerror = (error) => {
+                reject(error)
+        
+            }
+        })
+    }
      
     //  var file = document.querySelector('#files > input[type="file"]').files[0];
     //  getBase64(file); // prints the base64 string
 
     async function SubmitPost(event) {
         try {
-            event.preventDefault();
-            const formData = new FormData();
-            formData.append('photo', Upload);
-    
-            // const response = await axios.post("http://localhost:3001/upload", formData, {
-            //     headers: { 'Content-Type': 'multipart/form-data' },
-            //     responseType: 'arraybuffer',
-            // });
-            getBase64(Upload)
-            //let photo = new Buffer.from('base64',Upload);
-           
           
-            // Send the buffer in the request body
-            const DataSent = await axios.post("http://localhost:3001/blogs", {
-                usersId: 'jaredp',
-                Title: Title,
-                like: 2,
-                content: content,
-                media:{blob:photoBlob}
-                 // sending buffer
-            });
+            const DataSent = await axios.post("http://localhost:3001/blogs", { title: title, caption: caption, likes:0,...mediaPostImage });
             console.log(DataSent.data);
         } catch (error) {
             console.error(error);
         }
     }
+    // async function getdata(event) {
+    //     let response = await axios.get('http://localhost:3001/test')
+    //     console.log(response.data)
+    //  }
     
 
     return (
@@ -149,7 +138,7 @@ function Post(props) {
                     label="Blog Content"
                 >
                     <Form.Control
-                        onChange={contentF}
+                        onChange={captionF}
                         as="textarea"
                         placeholder="Leave a comment here"
                         style={{
@@ -171,13 +160,13 @@ function Post(props) {
                     </h3>
                     <br></br>
                     <Form.Control
-                        onChange={uploadF}
+                        onChange={handleFileUpload}
                         type="file"
                         required
                     />
                 </Form.Group>
                 <button
-                    onClick={SubmitPost}
+                    onClick={() => { SubmitPost() }}
                     style={{
                         width: "100%",
                         AlignSelf: "center",
