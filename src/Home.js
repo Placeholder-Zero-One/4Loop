@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Posts from './Components/Posts';
 import { useAuth0 } from "@auth0/auth0-react";
-
 import Sidebar from './Components/Sidebar.js';
 import './CSS/Home.css';
 
 function Home() {
+  const { getAccessTokenSilently } = useAuth0();
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [previewPost, setPreviewPost] = useState({
     title: '',
@@ -27,7 +26,13 @@ function Home() {
 
   const handleCloseCreatePost = () => {
     setShowCreatePost(false);
+    setPreviewPost({
+      title: '',
+      content: '',
+      image: null,
+    });
   };
+  
 
   const handlePreviewUpdate = (event) => {
     const { name, value } = event.target;
@@ -52,34 +57,37 @@ function Home() {
 
   const SubmitPost = async (event) => {
     try {
+      const token = await getAccessTokenSilently();
       const formData = new FormData();
       formData.append('file', mediaPostImage);
   
-      const response = await axios.post("http://localhost:3001/upload", formData, {
-        usersId: 'jaredp',
+      const response = await axios.post("https://fourloop-backend-fwxi.onrender.com/upload", formData, {
         Title: previewPost.title,
         like: 2,
         content: previewPost.content,
-      });
-  
-      setPreviewPost((prevState) => ({
-        
-        ...prevState,
-        image: URL.createObjectURL(mediaPostImage),
-      }));
-  
+      },{ headers: { authorization: `Bearer ${token}` } });
       console.log(response);
       console.log('Submit button clicked');
+  
+      // Reset the state variables asynchronously
+      await new Promise((resolve) => {
+        setShowCreatePost(false);
+        setPreviewPost({
+          title: '',
+          content: '',
+          image: null,
+        });
+        resolve();
+      });
     } catch (error) {
       console.error(error);
-    } finally {
-      handleCloseCreatePost();
     }
-  };  
+  };
+  
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('http://localhost:3000/posts');
+      const response = await fetch('https://fourloop-backend-fwxi.onrender.com/upload');
       const data = await response.json();
       setPosts(data);
     } catch (error) {
