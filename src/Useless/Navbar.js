@@ -1,5 +1,4 @@
 import React from "react"
-import { useState } from 'react';
 import { Link } from "react-router-dom";
 let click = 1;
 function Navbar(props) {
@@ -9,29 +8,29 @@ function Navbar(props) {
         console.log("click", props.userlogin)
     }
 
-    function scrollBartoggle(){
+    function scrollBartoggle() {
         props.showscrollFunction(true)
     }
 
     return (
         <>
 
-            <nav id="navbar"                                                            
+            <nav id="navbar"
                 style={{
                     display: "flex",
                     justifyContent: "flex-end",
                     backgroundColor: "green",
-                   
+
                 }}>
 
                 <ul
-                    style={{                                                            
+                    style={{
                         display: "flex",
                         columnGap: "20px",
                         marginRight: "20px"
                     }}>
 
-                    {props.userlogin % 2 === 0 ?           
+                    {props.userlogin % 2 === 0 ?
                         <>
                             <li
                                 style={{
@@ -41,7 +40,7 @@ function Navbar(props) {
                                     backgroundColor: "rgb(122, 1, 1)",
                                     fontSize: "30px"
                                 }}>
-                                <img src="codecrew.png" style={{
+                                <img src="codecrew.png" alt="Codecrew Background" style={{
                                     position: "absolute",
                                     right: "216px",
                                     top: "32px",
@@ -76,6 +75,7 @@ function Navbar(props) {
                                 fontSize: "30px"
                             }}>
                                 <img src="codecrew.png"
+                                    alt="Codecrew Background"
                                     style={{
                                         position: "absolute",
                                         right: "338px",
@@ -100,7 +100,7 @@ function Navbar(props) {
                                     listStyle: "none"
                                 }}>
                                 <Link
-                                onClick={scrollBartoggle}
+                                    onClick={scrollBartoggle}
                                     style={{
                                         color: "hsl(60, 74%, 50%)"
                                     }}

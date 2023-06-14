@@ -1,16 +1,18 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Splash from './Splash';
-import Posts from './Posts';
-import './App.css';
+import Home from './Home';
+import './CSS/App.css';
 
 function App() {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Splash />} />
-        <Route path="/posts" element={<Posts />} />
-      </Routes>
+    <div className="app">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Splash />} />
+          <Route path="/home" element={<Home />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
