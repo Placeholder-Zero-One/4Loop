@@ -1,61 +1,71 @@
 .SSidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-  }
-  
-  .SProfile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .SProfile-picture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  
-  .SUsername {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .SNavigation {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 30px;
-  }
-  
-  .SNavigation li {
-    margin-bottom: 10px;
-  }
-  
-  .SNavigation a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    font-size: 16px;
-  }
-  
-  .SNavigation a:hover {
-    color: #007bff;
-  }
-  
-  .SMain-content {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  .STitle {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }  
+  width: 250px;
+  height: 100vh;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.SProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.SProfile-picture {
+  min-width: 90%;
+  min-height: 90%;
+  border-radius: 50%;
+  border: 5px solid #082149;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.SUsername {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.SContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.SNavigation {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 30px;
+}
+
+.SNavigation li {
+  margin-bottom: 10px;
+}
+
+.SNavigation a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.SNavigation a:hover {
+  color: #007bff;
+}
+
+.SFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.SKnown-languages img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+}
