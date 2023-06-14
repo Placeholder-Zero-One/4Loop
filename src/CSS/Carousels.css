@@ -1,0 +1,56 @@
+.Ccarousel-container {
+    background-color: rgb(154, 1, 1);
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .Ccarousel {
+    width: 1200px;
+    border: 1px solid black;
+    background-color: rgb(154, 1, 1);
+    height: 500px;
+  }
+  
+  .Ccarousel-item {
+    text-align: center;
+  }
+  
+  .Ccarousel-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 10px solid black;
+    height: 100%;
+  }
+  
+  .Ccarousel-content {
+    flex: 0 0 50%;
+    margin-top: 40px;
+    margin-right: -100px;
+  }
+  
+  .Ccarousel-title {
+    text-align: center;
+    width: 400px;
+    height: fit-content;
+    padding: 2px;
+    background-color: green;
+    font-size: 35px;
+    color: rgb(0, 1, 82);
+    border: 10px solid hsl(60, 74%, 50%);
+  }
+  
+  .Ccarousel-description {
+    width: 400px;
+    height: fit-content;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    max-height: 274px;
+    padding: 10px;
+    background-color: green;
+    font-size: 25px;
+    color: rgb(0, 1, 82);
+    border: 10px solid hsl(60, 74%, 50%);
+  }
+  
