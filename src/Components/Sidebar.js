@@ -16,7 +16,7 @@ function Sidebar() {
         {isAuthenticated && (
           <>
             <img className="SProfile-picture" src={user.picture} alt="Profile" />
-            <h2 className="SUsername">{user.name}</h2>
+            <h2 className="SUsername">@{user.name}</h2>
           </>
         )}
       </div>
@@ -37,9 +37,13 @@ function Sidebar() {
           <button onClick={handleLogout}>Logout</button>
         </li>
       </ul>
+      <div className="SKnown-languages">
+        <img src="https://cdn.iconscout.com/icon/free/png-256/free-css-37-226088.png" alt="Known Languages" />
+      </div>
     </div>
   );
 }
+
 
 function App() {
   const domain = 'mollemira.us.auth0.com';

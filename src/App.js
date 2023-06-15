@@ -1,8 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Splash from './Splash';
-import Posts from './posts';
-import './App.css';
 import Home from './Home';
 import './CSS/App.css';
 
