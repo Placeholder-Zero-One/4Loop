@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Posts from './Components/Posts';
-import { useAuth0 } from "@auth0/auth0-react";
+import CardComponent from './Components/Card';
+import { useAuth0 } from '@auth0/auth0-react';
 import Sidebar from './Components/Sidebar.js';
 import './CSS/Home.css';
 
@@ -10,15 +10,25 @@ function Home() {
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [previewPost, setPreviewPost] = useState({
     title: '',
-    content: '',
-    image: null,
+    caption: '',
+    media: null,
   });
-  const [mediaPostImage, setMediaPostImage] = useState({});
+  const [mediaPostImage, setMediaPostImage] = useState(null);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/upload');
+      const postsData = response.data;
+      setPosts(postsData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleCreatePost = () => {
     setShowCreatePost(true);
@@ -28,11 +38,11 @@ function Home() {
     setShowCreatePost(false);
     setPreviewPost({
       title: '',
-      content: '',
-      image: null,
+      caption: '',
+      media: null,
     });
+    setMediaPostImage(null);
   };
-  
 
   const handlePreviewUpdate = (event) => {
     const { name, value } = event.target;
@@ -42,72 +52,63 @@ function Home() {
     }));
   };
 
-  const handleFileUpload = async (e) => {
-    if (e.target.files) {
+  const handleFileUpload = (e) => {
+    if (e.target.files.length > 0) {
       const file = e.target.files[0];
-      console.log(e.target.files[0]);
       setMediaPostImage(file);
+
       setPreviewPost((prevState) => ({
         ...prevState,
-        image: file,
+        media: URL.createObjectURL(file),
       }));
     }
   };
-  
 
-  const SubmitPost = async (event) => {
+  const submitPost = async () => {
     try {
-      const token = await getAccessTokenSilently();
       const formData = new FormData();
+      formData.append('title', previewPost.title);
+      formData.append('caption', previewPost.caption);
+      formData.append('likes', 0);
       formData.append('file', mediaPostImage);
-  
-      const response = await axios.post("https://fourloop-backend-fwxi.onrender.com/upload", formData, {
-        Title: previewPost.title,
-        like: 2,
-        content: previewPost.content,
-      },{ headers: { authorization: `Bearer ${token}` } });
-      console.log(response);
-      console.log('Submit button clicked');
-  
-      // Reset the state variables asynchronously
-      await new Promise((resolve) => {
-        setShowCreatePost(false);
-        setPreviewPost({
-          title: '',
-          content: '',
-          image: null,
-        });
-        resolve();
+
+      const accessToken = await getAccessTokenSilently({ prompt: 'consent' });
+
+      await axios.post('http://localhost:3001/upload', formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'multipart/form-data',
+        },
       });
+
+      // Reset the state variables
+      setShowCreatePost(false);
+      setPreviewPost({
+        title: '',
+        caption: '',
+        media: null,
+      });
+      setMediaPostImage(null);
+
+      // Refetch the posts
+      fetchPosts();
     } catch (error) {
       console.error(error);
-    }
-  };
-  
-
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch('https://fourloop-backend-fwxi.onrender.com/upload');
-      const data = await response.json();
-      setPosts(data);
-    } catch (error) {
-      console.log('Error fetching posts:', error);
     }
   };
 
   return (
     <div className="Home">
       <Sidebar />
+
       <div className="Hmain">
         <h1>CodeCrew Blog</h1>
         <button className="Hcreate-post-button" onClick={handleCreatePost}>
           Create Post
         </button>
 
-        {/* Existing posts rendering code */}
-        {posts.map((post) => (
-          <Posts key={post.id} post={post} handleShow={handleCreatePost} />
-        ))}
+        {/* Render CardComponent */}
+        <CardComponent posts={posts} />
 
         {/* Create Post Modal */}
         {showCreatePost && (
@@ -125,9 +126,9 @@ function Home() {
 
               <div className="Hform-group">
                 <textarea
-                  id="postContent"
-                  name="content"
-                  placeholder="Enter content"
+                  id="postCaption"
+                  name="caption"
+                  placeholder="Enter caption"
                   onChange={handlePreviewUpdate}
                 ></textarea>
               </div>
@@ -143,10 +144,9 @@ function Home() {
                     onChange={handleFileUpload}
                   />
                 </div>
-                <button className="Hcreate-post-submit" onClick={SubmitPost}>
+                <button className="Hcreate-post-submit" onClick={submitPost}>
                   Submit
                 </button>
-
               </div>
             </div>
             <button className="Hcreate-post-close" onClick={handleCloseCreatePost}>
@@ -155,22 +155,19 @@ function Home() {
           </div>
         )}
 
-{/* Preview Modal */}
-{(previewPost.title || previewPost.content || previewPost.image) && (
-  <div className="HPcreate-post-modal HPpreview-modal">
-    <div className="HPcreate-post-content">
-      <h2>Preview</h2>
-      <div className="HPform-group">
-        <h3>{previewPost.title}</h3>
-        {previewPost.image && (
-          <img src={URL.createObjectURL(previewPost.image)} alt="Preview" />
-        )}
-        <p>{previewPost.content}</p>
-      </div>
-    </div>
-  </div>
-)}
-
+        {/* Preview Modal */}
+        {previewPost.title || previewPost.caption || previewPost.media ? (
+          <div className="HPcreate-post-modal HPpreview-modal">
+            <div className="HPcreate-post-content">
+              <h2>Preview</h2>
+              <div className="HPform-group">
+                <h3>{previewPost.title}</h3>
+                {previewPost.media && <img src={previewPost.media} alt="Preview" />}
+                <p>{previewPost.caption}</p>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );

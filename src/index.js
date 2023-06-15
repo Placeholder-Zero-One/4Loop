@@ -11,11 +11,7 @@ root.render(
         <Auth0Provider
             domain="mollemira.us.auth0.com"
             clientId="cmBKMx5fz4Qqe6Kd40F5S8K6fXJhD3l1"
-            authorizationParams={{
-                redirect_uri: window.location.origin,
-                audience:'https://mollemira.us.auth0.com/api/v2/',
-                scope:'openid profile email'
-            }}
+            redirectUri={window.location.origin}
         >
             <App />
         </Auth0Provider>

@@ -20,30 +20,36 @@ function Sidebar() {
           </>
         )}
       </div>
-      <ul className="SNavigation">
-        <li>
-          <Link to="/me">Profile</Link>
-        </li>
-        <li>
-          <Link to="/notifications">Notifications</Link>
-        </li>
-        <li>
-          <Link to="/explore">Explore</Link>
-        </li>
-        <li>
-          <Link to="/settings">Settings</Link>
-        </li>
-        <li>
-          <button onClick={handleLogout}>Logout</button>
-        </li>
-      </ul>
-      <div className="SKnown-languages">
-        <img src="https://cdn.iconscout.com/icon/free/png-256/free-css-37-226088.png" alt="Known Languages" />
+      <div className="SGroup">
+        <ul className="SNavigation">
+          <li>
+            <Link to="/me">Profile</Link>
+          </li>
+          <li>
+            <Link to="/notifications">Notifications</Link>
+          </li>
+          <li>
+            <Link to="/explore">Explore</Link>
+          </li>
+          <li>
+            <Link to="/settings">Settings</Link>
+          </li>
+          <li>
+            <button onClick={handleLogout}>Logout</button>
+          </li>
+        </ul>
+        <div className="SKnown-languages">
+          <div className="slanted-border"></div>
+          <img
+            src="https://cdn.iconscout.com/icon/free/png-256/free-css-37-226088.png"
+            alt="Known Languages"
+            className="SKnown-languages-img"
+          />
+        </div>
       </div>
     </div>
   );
 }
-
 
 function App() {
   const domain = 'mollemira.us.auth0.com';

@@ -72,8 +72,7 @@ function Splash() {
           </div>
           <div className="login-signup-container">
             <img className="logo" src={logoImg} alt="Logo" />
-            <LoginButton className="login-button" />
-            <button className="signup-button">Sign Up</button>
+            <LoginButton className="login-button"/>
           </div>
         </div>
       </div>

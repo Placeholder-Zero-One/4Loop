@@ -1,23 +1,27 @@
 .SSidebar {
   width: 250px;
   height: 100vh;
-  background-color: #f0f0f0;
+  background-color: #f0f0f0;  
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
 }
-
+.SGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
 .SProfile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  
+  border-right: 6px solid #B02025;
 }
 
 .SProfile-picture {
-  min-width: 90%;
-  min-height: 90%;
+  margin-top: 11%;
+  min-width: 70%;
+  min-height: 70%;
   border-radius: 50%;
   border: 5px solid #082149;
   object-fit: cover;
@@ -39,11 +43,13 @@
 .SNavigation {
   list-style-type: none;
   padding: 0;
-  margin-top: 30px;
+  margin-top: 33%;
+  flex-grow: 1;
+  border-right: 6px solid #B02025;
 }
 
 .SNavigation li {
-  margin-bottom: 10px;
+  margin-bottom: 20%;
 }
 
 .SNavigation a {
@@ -61,11 +67,28 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-top: 20px;
+  
 }
 
-.SKnown-languages img {
-  width: 30px;
-  height: 30px;
+.SKnown-languages {
+  position: relative;
+  margin-left: 7.5%;
+}
+
+.SKnown-languages .slanted-border {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  border: 4px solid #B02025;
+  transform: skewX(-49deg);
+  transform-origin: top right;
+}
+
+.SKnown-languages-img {
+  width: 80px;
+  height: 80px;
   object-fit: cover;
+  margin-left: auto;
+  z-index: 1;
 }
