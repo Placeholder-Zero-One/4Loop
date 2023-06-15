@@ -68,6 +68,11 @@ function Post(props) {
         })
     }
      
+
+
+
+
+
     //  var file = document.querySelector('#files > input[type="file"]').files[0];
     //  getBase64(file); // prints the base64 string
 

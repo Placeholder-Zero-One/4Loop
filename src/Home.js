@@ -4,6 +4,7 @@ import Posts from './Components/Posts';
 import { useAuth0 } from "@auth0/auth0-react";
 import Sidebar from './Components/Sidebar.js';
 import './CSS/Home.css';
+import { Link } from 'react-router-dom';
 
 function Home() {
     const { getAccessTokenSilently } = useAuth0();
@@ -103,6 +104,13 @@ function Home() {
 
     return (
         <div className="Home">
+            <style>
+          {`
+            ::-webkit-scrollbar {
+                display: none;
+              }
+          `}
+        </style>
             <Sidebar />
             <div className="Hmain">
                 <h1>CodeCrew Blog</h1>
@@ -150,7 +158,7 @@ function Home() {
                                     />
                                 </div>
                                 <button className="Hcreate-post-submit" onClick={SubmitPost}>
-                                    Submit
+                                    <Link to={'/Posts'}>Submit</Link>
                                 </button>
 
                             </div>
