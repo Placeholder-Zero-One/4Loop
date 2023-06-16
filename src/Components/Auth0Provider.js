@@ -7,7 +7,7 @@ ReactDOM.render(
     <Auth0Provider
         domain="mollemira.us.auth0.com"
         clientId="cmBKMx5fz4Qqe6Kd40F5S8K6fXJhD3l1"
-        redirectUri="http://localhost:3000/home"
+        redirectUri="https://fourloop-ppmi.onrender.com/home"
     >
         <App />
     </Auth0Provider>,

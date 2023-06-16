@@ -54,7 +54,7 @@ function Sidebar() {
 function App() {
   const domain = 'mollemira.us.auth0.com';
   const clientId = 'cmBKMx5fz4Qqe6Kd40F5S8K6fXJhD3l1';
-  const redirectUri = 'http://localhost:3000/home';
+  const redirectUri = 'https://fourloop-ppmi.onrender.com/home';
 
   return (
     <Auth0Provider domain={domain} clientId={clientId} redirectUri={redirectUri}>

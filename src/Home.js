@@ -22,7 +22,7 @@ function Home() {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/upload');
+      const response = await axios.get('https://fourloop-backend-fwxi.onrender.com/upload');
       const postsData = response.data;
       setPosts(postsData);
     } catch (error) {
@@ -74,7 +74,7 @@ function Home() {
 
       const accessToken = await getAccessTokenSilently({ prompt: 'consent' });
 
-      await axios.post('http://localhost:3001/upload', formData, {
+      await axios.post('https://fourloop-backend-fwxi.onrender.com/upload', formData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'multipart/form-data',
