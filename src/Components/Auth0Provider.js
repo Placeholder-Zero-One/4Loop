@@ -8,6 +8,7 @@ ReactDOM.render(
         domain="mollemira.us.auth0.com"
         clientId="cmBKMx5fz4Qqe6Kd40F5S8K6fXJhD3l1"
         redirectUri={window.location.origin}
+        debug={true}
     >
         <App />
     </Auth0Provider>,
